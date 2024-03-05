@@ -42,6 +42,17 @@
           <failOnMissingWebXml>false</failOnMissingWebXml> <!-- Set to 'true' if you have a web.xml -->
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-maven-plugin</artifactId>
+        <version>9.4.31.v20200723</version>
+        <configuration>
+          <scanIntervalSeconds>10</scanIntervalSeconds>
+          <webApp>
+            <contextPath>/</contextPath>
+          </webApp>
+        </configuration>
+      </plugin>
 
     </plugins>
   </build>
