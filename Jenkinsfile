@@ -1,16 +1,29 @@
 pipeline {
     agent any
     tools {
-        maven "M2"
+        maven "MAVEN3"
     }
 
     stages {
-        stage('Build') {
+                stage('Checkout SCM') {
             steps {
-                // Executes the Maven build command. 'clean install' will clean the previous build artifacts and then build the project.
-                sh 'mvn clean install'
+                checkout scm
             }
         }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Use isUnix() method to determine which command to run based on OS
+                    if (isUnix()) {
+                        sh "${env.MAVEN_HOME}/bin/mvn clean install"
+                    } else {
+                        bat "${env.MAVEN_HOME}\\bin\\mvn clean install"
+                    }
+                }
+            }
+        }
+
     }
      post {
             success {
