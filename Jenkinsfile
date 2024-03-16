@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // The Docker Hub credentials ID configured in Jenkins' credentials store.
-        DOCKER_CREDENTIALS_ID = 'docker-hub-creds33'
+        DOCKER_CREDENTIALS_ID = 'docker-hub-creds333'
         // The full image name for Docker Hub.
         IMAGE = 'ziyan33/lab3_q1:1.0'
     }
