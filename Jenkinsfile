@@ -45,16 +45,17 @@ pipeline {
             }
         }
 
-        stage('Docker Login') {
-            steps {
-                script {
-                    // Log in to Docker Hub using the credentials stored in Jenkins.
-                    docker.withRegistry('https://registry.hub.docker.com', env.DOCKER_CREDENTIALS_ID) {
-                        // This block ensures you're logged into Docker Hub.
-                    }
-                }
-            }
-        }
+         stage('Docker Login and Push') {
+                 steps {
+                     script {
+                         withCredentials([usernamePassword(credentialsId: 'docker-hub-creds333', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                             bat "docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%"
+                             bat "docker build -t ${env.IMAGE} ."
+                             bat "docker push ${env.IMAGE}"
+                         }
+                     }
+                 }
+             }
 
         stage('Docker Push') {
             steps {
